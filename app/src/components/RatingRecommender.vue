@@ -1,50 +1,44 @@
 <template>
   <div>
-    <h1>Recommender by Rating</h1>
+    <h2>Top 10 Rated Movies</h2>
 
-    <button @click="getMovieData">Get API Data</button>
-
-    <div v-if="movieData">
-      <p>{{ movieData }}</p>
-    </div>
-
-    <div v-if="error">
-      <p>Error fetching movie data: {{ error }}</p>
-    </div>
-
+    <movie-list :movie-list="ratedMovieList" />
   </div>
-
 </template>
 
 <script>
 import axios from 'axios';
+import MovieList from './MovieList.vue';
+
 export default {
+  components: {
+    MovieList,
+  },
   data() {
     return {
-      movieData: null,
-      error: null
+      // Assuming you have some mechanism to fetch rated movies
+      ratedMovieList: [], // Update this with actual data
     };
   },
+  created() {
+    // Fetch the list of top-rated movies
+    this.fetchTopRatedMovies();
+  },
   methods: {
-    getMovieData() {
-      // Make a GET request to the /movie endpoint
-      axios.get('/api')
-          .then(response => {
-            // Handle successful response
-            this.movieData = response.data;
-            this.error = null;
-          })
-          .catch(error => {
-            // Handle error
-            this.error = error.message;
-            this.movieData = null;
-          });
-    }
-  }
-}
-
+    async fetchTopRatedMovies() {
+      try {
+        const response = await axios.post('/api/recommendation_by_rating', {
+          // Pass your list of rated movies or any other necessary data
+        });
+        this.ratedMovieList = response.data;
+      } catch (error) {
+        console.error('Error fetching top-rated movies:', error);
+      }
+    },
+  },
+};
 </script>
 
-<style scoped>
-
+<style>
+/* Styles remain the same */
 </style>
