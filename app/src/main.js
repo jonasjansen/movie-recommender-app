@@ -1,6 +1,17 @@
-import './assets/main.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import GenreRecommender from './components/GenreRecommender.vue';
+import RatingRecommender from './components/RatingRecommender.vue';
 
-import { createApp } from 'vue'
-import App from './App.vue'
+const routes = [
+    { path: '/genre', component: GenreRecommender },
+    { path: '/rating', component: RatingRecommender },
+];
 
-createApp(App).mount('#app')
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+});
+
+createApp(App).use(router).mount('#app');

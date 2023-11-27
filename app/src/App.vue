@@ -1,72 +1,56 @@
-<!-- App.vue -->
 <template>
   <div id="app">
-    <button @click="getMovieData">Get API Data</button>
-
-    <div v-if="movieData">
-      <p>{{ movieData }}</p>
+    <div class="sidebar">
+      <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">Recommender by Genre</router-link>
+      <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">Recommender by Rating</router-link>
     </div>
-
-    <div v-if="error">
-      <p>Error fetching movie data: {{ error }}</p>
+    <div class="main-content">
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
-      movieData: null,
-      error: null
+      currentRoute: "/genre", // Set the default route
     };
   },
-  methods: {
-    getMovieData() {
-      // Make a GET request to the /movie endpoint
-      axios.get('/api')
-          .then(response => {
-            // Handle successful response
-            this.movieData = response.data;
-            this.error = null;
-          })
-          .catch(error => {
-            // Handle error
-            this.error = error.message;
-            this.movieData = null;
-          });
-    }
-  }
+  watch: {
+    $route(to) {
+      this.currentRoute = to.path;
+    },
+  },
 };
 </script>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+#app {
+  display: flex;
 }
 
-.logo {
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.menu-item {
   display: block;
-  margin: 0 auto 2rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.menu-item:hover,
+.menu-item.active {
+  background-color: #ddd;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.main-content {
+  flex: 1;
+  padding: 20px;
 }
 </style>
