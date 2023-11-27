@@ -11,9 +11,7 @@
               :key="star"
               class="star"
               @click="rateMovie(index, star)"
-          >
-            <i :class="{ 'fas': star <= movie.rating, 'far': star > movie.rating } fa-star"></i>
-          </span>
+          ></span>
         </div>
       </div>
     </div>
@@ -42,7 +40,7 @@ export default {
         const ratingsData = this.movieList.map(({ id, rating }) => ({ id, rating }));
 
         // Make API call to /recommendation/by_rating with the updated ratings
-        const response = await axios.post('/api/recommendation_by_rating', { rated_movies: ratingsData });
+        const response = await axios.post('/api/recommendation/by_rating/', { rated_movies: ratingsData });
 
         // Update the movie list with the new recommendations
         this.$emit('update-movie-list', response.data);
@@ -88,13 +86,17 @@ export default {
 .star {
   font-size: 20px;
   cursor: pointer;
+  display: inline-block;
+  margin-right: 5px;
 }
 
-.fa-star {
+.star::before {
+  content: '☆';
   color: gold;
 }
 
-.fa-star.far {
-  color: grey;
+.star.filled::before {
+  content: '★';
+  color: gold;
 }
 </style>
