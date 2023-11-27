@@ -9,13 +9,13 @@ movie_data = [
     # Add more movie data as needed
 ]
 
-@app.route('/movies/genres')
+@app.route('/movie/genres')
 def get_all_genres():
     # Logic to fetch and return all available genres
     genres = ["action", "comedy", "drama", "sci-fi", "horror"]
     return jsonify(genres)
 
-@app.route('/movies/sample')
+@app.route('/movie/sample')
 def get_random_movies():
     # Logic to fetch and return a random sample of movies
     # Replace this with your actual implementation

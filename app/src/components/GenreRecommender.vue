@@ -4,9 +4,7 @@
       <h2>Select Genre</h2>
       <select v-model="selectedGenre">
         <option value="">-- Select Genre --</option>
-        <option value="action">Action</option>
-        <option value="comedy">Comedy</option>
-        <!-- Add more genres as needed -->
+        <option v-for="genre in genres" :key="genre" :value="genre">{{ genre }}</option>
       </select>
     </div>
 
@@ -24,26 +22,45 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       selectedGenre: '',
-      movieList: [], // Placeholder for movie list
+      genres: [], // To store the list of genres
+      movieList: [],
     };
+  },
+  created() {
+    // Fetch the list of genres when the component is created
+    this.fetchGenres();
   },
   watch: {
     selectedGenre() {
-      // Replace this with an API call to fetch movies based on the selected genre
-      // For now, using dummy data
-      this.fetchMovies();
+      // Fetch the genre ranking when the selected genre changes
+      this.fetchGenreRanking();
     },
   },
   methods: {
-    fetchMovies() {
-      // Replace this with an API call to fetch movies based on the selected genre
-      // Dummy data for illustration
-      const dummyMovies = ['Movie 1', 'Movie 2', 'Movie 3', 'Movie 4', 'Movie 5', 'Movie 6', 'Movie 7', 'Movie 8', 'Movie 9', 'Movie 10'];
-      this.movieList = dummyMovies;
+    async fetchGenres() {
+      try {
+        const response = await axios.get('/api/movie/genres');
+        this.genres = response.data;
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    },
+    async fetchGenreRanking() {
+      // Fetch the genre ranking based on the selected genre
+      if (this.selectedGenre) {
+        try {
+          const response = await axios.get(`/api/recommendation/by_genre/${this.selectedGenre}`);
+          this.movieList = response.data;
+        } catch (error) {
+          console.error('Error fetching genre ranking:', error);
+        }
+      }
     },
     getMovieImage(index) {
       // Replace this with the actual image URL for each movie
