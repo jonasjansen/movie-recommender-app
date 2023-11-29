@@ -1,100 +1,69 @@
 <template>
-  <div class="rated-movie-list">
-    <h2>Rate Movies</h2>
-    <div v-for="(movie, index) in movieList" :key="index" class="rated-movie-card">
-      <img :src="movie.image" alt="Movie Image" />
-      <div class="movie-details">
-        <p class="movie-name">{{ movie.title }}</p>
-        <div class="rating-stars">
-          <span
-              v-for="star in 5"
-              :key="star"
-              class="star"
-              @click="rateMovie(index, star)"
-          >
-            <i :class="{ 'fas': star <= movie.rating, 'far': star > movie.rating } fa-star"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <button @click="submitRatings">Submit Ratings</button>
+  <div>
+    <h2>Top 10 Rated Movies</h2>
+    <star-rating :items="items" @rating-updated="updateRating" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import MovieRatingList from './MovieRatingList.vue';
+import StarRating from './StarRating.vue';
 
 export default {
-  props: {
-    movieList: Array,
+  components: {
+    StarRating,
+  },
+  data() {
+    return {
+      items: [
+        { title: 'Item 1', image: 'https://placekitten.com/200/300', currentRating: 2 },
+        { title: 'Item 2', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 3', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 4', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 5', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 6', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 7', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 8', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 9', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        { title: 'Item 10', image: 'https://placekitten.com/200/300', currentRating: 0 },
+        // Add more items as needed, up to a maximum of 10
+      ],
+    };
   },
   methods: {
-    rateMovie(movieIndex, rating) {
-      // Update the rating for the clicked movie
-      this.movieList = this.movieList.map((movie, index) =>
-          index === movieIndex ? { ...movie, rating } : movie
-      );
+    updateRating({ index, stars }) {
+      // Update the ratings in the parent component
+      this.items[index].currentRating = stars;
+
+      // Now, you can send the updated ratings to your API or perform any other desired actions
+      this.sendRatingsToApi();
     },
-    async submitRatings() {
+    async sendRatingsToApi() {
       try {
+        console.log("Sending ratings to the API:", this.items);
+
         // Extract only necessary data (movie ID and rating) to send to the API
-        const ratingsData = this.movieList.map(({ id, rating }) => ({ id, rating }));
+        const ratingsData = this.items.map(({ title, currentRating }) => ({ title, currentRating }));
 
-        // Make API call to /recommendation/by_rating with the updated ratings
-        const response = await axios.post('/api/recommendation_by_rating', { rated_movies: ratingsData });
 
-        // Update the movie list with the new recommendations
-        this.$emit('update-movie-list', response.data);
+        // Implement your logic to send ratings to the API
+        const response = await axios.post('/api/recommendation/by_rating', { rated_movies: ratingsData});
+
+        console.log("Result from API:", response.data);
+
+        // TODO: Show result as list.
       } catch (error) {
-        console.error('Error submitting ratings:', error);
+        //console.error('Error fetching movie ranking:', error);
+        console.error('Error fetching movie ranking:');
       }
+
+
     },
   },
 };
 </script>
 
 <style>
-.rated-movie-list {
-  margin-top: 20px;
-}
-
-.rated-movie-card {
-  display: flex;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.rated-movie-card img {
-  width: 100px;
-  height: 150px;
-  margin-right: 10px;
-}
-
-.movie-details {
-  flex: 1;
-}
-
-.movie-name {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.rating-stars {
-  margin-top: 5px;
-}
-
-.star {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.fa-star {
-  color: gold;
-}
-
-.fa-star.far {
-  color: grey;
-}
+/* Styles remain the same */
 </style>

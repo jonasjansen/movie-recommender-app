@@ -31,14 +31,18 @@ def get_recommendation_by_genre(selected_genre):
 
 @app.route('/recommendation/by_rating', methods=['POST'])
 def get_recommendation_by_rating():
+    # TODO: Proper process the post data.
+    # TODO: Find out how to debug this.
+
     # Logic to fetch and return a recommendation based on the list of rated movies
     # Replace this with your actual implementation
     # Example: You might expect a JSON payload with a list of rated movies
-    rated_movies = request.get_json().get('rated_movies', [])
+    #rated_movies = request.get_json().get('rated_movies', [])
 
     # Dummy logic to recommend movies based on ratings
-    rated_movies_recommendation = sorted(movie_data, key=lambda x: x['rating'], reverse=True)[:10]
-    return jsonify(rated_movies_recommendation)
+    #rated_movies_recommendation = sorted(movie_data, key=lambda x: x['rating'], reverse=True)[:10]
+    #return jsonify(rated_movies_recommendation)
+    return jsonify(movie_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
