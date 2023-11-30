@@ -8,8 +8,8 @@ from math import recommend_by_genre, recommend_by_ratings
 app = Flask(__name__)
 
 similarity_matrix = np.load('similarity_matrix.npy')
-rating_matrix = pd.read_csv('rating_matrix.csv')
-exploded_movies = pd.read_csv('exploded_movies.csv')
+rating_matrix = pd.read_csv('rating_matrix.csv', index_col=0)
+exploded_movies = pd.read_csv('exploded_movies.csv', index_col=0)
 popular_movies_ids = exploded_movies[exploded_movies['hybrid_score']
                                      > 0.3]['movie_id'].unique().tolist()
 genres = exploded_movies['genre'].unique().tolist()
