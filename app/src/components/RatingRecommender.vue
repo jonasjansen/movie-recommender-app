@@ -7,7 +7,6 @@
 
 <script>
 import axios from 'axios';
-import MovieRatingList from './MovieRatingList.vue';
 import StarRating from './StarRating.vue';
 
 export default {
