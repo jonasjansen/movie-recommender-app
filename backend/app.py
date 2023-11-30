@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import pandas as pd
 import numpy as np
 import random
-from math import recommend_by_genre, recommend_by_ratings
+from calculation import recommend_by_genre, recommend_by_ratings
 
 
 app = Flask(__name__)
