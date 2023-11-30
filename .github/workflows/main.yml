@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          rsync -rav * ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/ubuntu/app/
+          rsync -rav * ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/html/
       - name: Remove SSH Key
         run: |
           rm -rf ~/.ssh/id_rsa
