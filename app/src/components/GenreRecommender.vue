@@ -9,7 +9,7 @@
     </div>
 
     <h2>Recommendations</h2>
-    <movie-list v-if="selectedGenre" :movie-list="movieList" />
+    <movie-list v-if="selectedGenre" :movies="movies" />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     return {
       selectedGenre: '',
       genres: [],
-      movieList: [],
+      movies: [],
     };
   },
   created() {
@@ -53,7 +53,7 @@ export default {
         try {
           const response = await axios.get(`/api/recommendation/by_genre/${this.selectedGenre}`);
           console.log('Genre ranking:', response.data)
-          this.movieList = response.data;
+          this.movies = response.data;
         } catch (error) {
           console.error('Error fetching genre ranking:', error);
         }

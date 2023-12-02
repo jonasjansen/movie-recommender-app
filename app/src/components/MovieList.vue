@@ -1,9 +1,9 @@
 <template>
-  <div class="movie-section">
-    <div class="movie-card" v-for="(movie, index) in movieList" :key="index">
-      <img :src="movie.image" alt="Movie Image" />
-      <div class="movie-details">
-        <p class="movie-name">{{ movie.title }}</p>
+  <div class="movie-list">
+    <div v-for="(movie, index) in movies" :key="index" class="movie-card">
+      <div class="movie-content">
+        <img :src="movie.image" alt="Movie Image" class="movie-image" />
+        <h2 class="movie-title">{{ movie.title }}</h2>
       </div>
     </div>
   </div>
@@ -12,42 +12,64 @@
 <script>
 export default {
   props: {
-    movieList: Array,
+    movies: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
 
 <style>
-.movie-section {
-  margin-top: 20px;
+.movie-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .movie-card {
-  flex: 1 1 calc(20% - 20px); /* Set each card to take up 20% of the container width with a margin */
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-  padding: 10px;
+  flex: 0 0 19%;
+  margin-bottom: 20px; /* Adjust as needed */
 }
 
-.movie-card img {
+.movie-content {
   width: 100%;
+  text-align: center;
+}
+
+.movie-image {
+  max-width: 100%;
   height: auto;
-  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid darkgray;
 }
 
-.movie-details {
-  flex: 1;
+.movie-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
 }
 
-.movie-rank {
-  font-weight: bold;
+@media screen and (max-width: 1200px) {
+  .movie-card {
+    flex: 0 0 24%;
+  }
 }
 
-.movie-name {
-  margin-top: 5px;
+@media screen and (max-width: 992px) {
+  .movie-card {
+    flex: 0 0 32%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie-card {
+    flex: 0 0 48%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .movie-card {
+    flex: 0 0 100%;
+  }
 }
 </style>

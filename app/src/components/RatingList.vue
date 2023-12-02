@@ -1,9 +1,10 @@
 <template>
-  <div class="star-ratings">
-    <div v-for="(movie, index) in movies" :key="index" class="star-rating">
-      <img :src="movie.image" alt="Item Image" class="item-image" />
-      <h2>{{ movie.title }}</h2>
-      <div class="rating">
+  <div class="movie-list">
+    <div v-for="(movie, index) in movies" :key="index" class="movie-card">
+      <div class="movie-content">
+        <img :src="movie.image" alt="Movie Image" class="movie-image"/>
+        <h2 class="movie-title">{{ movie.title }}</h2>
+        <div class="rating">
         <span
             v-for="star in 5"
             :key="star"
@@ -17,6 +18,7 @@
         >
           &#9733;
         </span>
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +40,7 @@ export default {
   },
   methods: {
     rate(index, stars) {
-      this.$emit('rating-updated', { index, stars });
+      this.$emit('rating-updated', {index, stars});
     },
     hover(index, stars) {
       this.hoverRating = stars;
@@ -53,22 +55,56 @@ export default {
 </script>
 
 <style scoped>
-.star-ratings {
+.movie-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
-.star-rating {
+.movie-card {
+  flex: 0 0 19%;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.movie-content {
+  width: 100%;
   text-align: center;
-  margin: 20px;
-  flex-basis: calc(20% - 40px); /* 5 items per row with margin */
 }
 
-.item-image {
+.movie-image {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  border: 1px solid darkgray;
+}
+
+.movie-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .movie-card {
+    flex: 0 0 24%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .movie-card {
+    flex: 0 0 32%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie-card {
+    flex: 0 0 48%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .movie-card {
+    flex: 0 0 100%;
+  }
 }
 
 .rating {

@@ -9,7 +9,7 @@
 
     <!-- List of recommended movies -->
     <h2>Recommendations</h2>
-    <movie-list :movie-list="moviesRecommended"/>
+    <movie-list :movies="moviesRecommended"/>
   </div>
 </template>
 
