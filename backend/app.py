@@ -6,7 +6,6 @@ import random
 from calculation import recommend_by_genre, recommend_by_ratings
 from movie_object_builder import convert_ids_to_objects
 
-
 app = Flask(__name__)
 
 similarity_matrix = np.load('data/similarity_matrix.npy')
@@ -16,13 +15,6 @@ popular_movies_ids = exploded_movies[exploded_movies['hybrid_score']
                                      > 0.3]['movie_id'].unique().tolist()
 genres = exploded_movies['genre'].unique().tolist()
 genre_recommendations = {}
-
-# Example data for illustration
-movie_data = [
-    {"title": "Movie 1", "genre": "action", "rating": 4.5},
-    {"title": "Movie 2", "genre": "action", "rating": 3.8},
-    # Add more movie data as needed
-]
 
 
 @app.route('/movie/genres')
