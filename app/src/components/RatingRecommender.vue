@@ -1,9 +1,15 @@
 <template>
   <div>
+    <!-- List of movies to rate -->
     <h2>Rate Movies</h2>
     <rating-list :movies="moviesToRate" @rating-updated="updateRating"/>
+
+    <!-- Add a button to send the ratings to the API -->
+    <button @click="sendRatingsToApi">Send Ratings to API</button>
+
+    <!-- List of recommended movies -->
     <h2>Recommendations</h2>
-    <movie-list :movie-list="moviesToRecommend"/>
+    <movie-list :movie-list="moviesRecommended"/>
   </div>
 </template>
 
@@ -20,7 +26,7 @@ export default {
   data() {
     return {
       moviesToRate: [],
-      moviesToRecommend: [],
+      moviesRecommended: [],
     };
   },
   created() {
@@ -29,36 +35,33 @@ export default {
   methods: {
     async fetchMovieSample() {
       try {
+        console.log('Get sample movies from API.')
         const response = await axios.get('/api/movie/sample');
-        console.log('Movie sample:', response.data)
+
+        console.log("Result from API:", response.data);
         this.moviesToRate = response.data;
-        this.moviesToRecommend = response.data;
+
       } catch (error) {
         console.error('Error fetching genres:', error);
       }
     },
     updateRating({ index, stars }) {
-      console.log("DEBUG: updateRating", index, stars)
-      // Update the ratings in the parent component
+      console.log("UpdateRating", index, stars)
       this.moviesToRate[index].rating = stars;
-
-      // Now, you can send the updated ratings to your API or perform any other desired actions
-      //this.sendRatingsToApi();
     },
     async sendRatingsToApi() {
       try {
-        console.log("Sending ratings to the API:", this.movies);
+        console.log("Sending ratings to the API:", this.moviesToRate);
 
-        // Extract only necessary data (movie ID and rating) to send to the API
-        const ratingsData = this.items.map(({ title, currentRating }) => ({ title, currentRating }));
-
-
-        // Implement your logic to send ratings to the API
+        const ratingsData = this.moviesToRate.map(({ id, currentRating }) => ({ id, currentRating }));
         const response = await axios.post('/api/recommendation/by_rating', { rated_movies: ratingsData});
 
         console.log("Result from API:", response.data);
+        this.moviesRecommended = response.data;
+
+
+
       } catch (error) {
-        //console.error('Error fetching movie ranking:', error);
         console.error('Error fetching movie ranking:');
       }
     },

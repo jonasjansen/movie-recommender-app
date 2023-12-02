@@ -27,8 +27,7 @@ def get_random_movies():
     # We sample movies that have a hybrid score above a threshold because they have better chances that the user watched them
     movie_ids = random.sample(popular_movies_ids, 20)
     movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
-    result = json.dumps(movie_list)
-    return result
+    return json.dumps(movie_list)
 
 
 @app.route('/recommendation/by_genre/<selected_genre>')
@@ -41,18 +40,20 @@ def get_recommendation_by_genre(selected_genre):
 
     movie_ids = recommendations.tolist()
     movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
-    result = json.dumps(movie_list)
-    return result
+    return json.dumps(movie_list)
 
 
 @app.route('/recommendation/by_rating', methods=['POST'])
 def get_recommendation_by_rating():
-    # TODO: Proper process the post data.
-    # TODO: Find out how to debug this.
 
-    # new_ratings = request.json['new_ratings']
     new_ratings = request.get_json().get('rated_movies', [])
-    return jsonify(recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded_movies))
+    # TODO: Unclear format of new_ratings. Therefore this function breaks
+    # movie_ids = recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded_movies)
+
+    # TODO: Remove this placeholder sample line, when recommend_by_ratings returns movie_ids.
+    movie_ids = random.sample(popular_movies_ids, 20)
+    movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
+    return json.dumps(movie_list)
 
 
 if __name__ == '__main__':
