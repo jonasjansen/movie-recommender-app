@@ -1,17 +1,17 @@
 <template>
   <div>
     <h2>Top 10 Rated Movies</h2>
-    <star-rating :items="items" @rating-updated="updateRating" />
+    <rating-list :items="items" @rating-updated="updateRating" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import StarRating from './StarRating.vue';
+import RatingList from './RatingList.vue';
 
 export default {
   components: {
-    StarRating,
+    RatingList,
   },
   data() {
     return {
