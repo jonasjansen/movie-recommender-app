@@ -53,7 +53,7 @@ export default {
       try {
         console.log("Sending ratings to the API:", this.moviesToRate);
 
-        const ratingsData = this.moviesToRate.map(({ id, currentRating }) => ({ id, currentRating }));
+        const ratingsData = this.moviesToRate.map(({ id, rating }) => ({ id, rating }));
         const response = await axios.post('/api/recommendation/by_rating', { rated_movies: ratingsData});
 
         console.log("Result from API:", response.data);

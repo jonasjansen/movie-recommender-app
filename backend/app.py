@@ -45,13 +45,19 @@ def get_recommendation_by_genre(selected_genre):
 
 @app.route('/recommendation/by_rating', methods=['POST'])
 def get_recommendation_by_rating():
+    user_ratings = request.get_json().get('rated_movies', [])
 
-    new_ratings = request.get_json().get('rated_movies', [])
-    # TODO: Unclear format of new_ratings. Therefore this function breaks
+    new_ratings = np.full(3, np.nan)
+    for user_rating in user_ratings:
+        if user_rating['rating'] > 0:
+            new_ratings[user_rating['id'] - 1] = user_rating['rating']
+
+    # TODO: The similiarity matrix has 3706 entries. But this does not match the exact movie ids. Create a mapping.
     # movie_ids = recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded_movies)
 
     # TODO: Remove this placeholder sample line, when recommend_by_ratings returns movie_ids.
     movie_ids = random.sample(popular_movies_ids, 20)
+
     movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
     return json.dumps(movie_list)
 
