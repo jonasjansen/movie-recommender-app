@@ -2,10 +2,9 @@
   <div class="movie-section">
     <h2>Top 10 Movies</h2>
     <div class="movie-card" v-for="(movie, index) in movieList" :key="index">
-      <img :src="getMovieImage(index)" alt="Movie Image" />
+      <img :src="movie.image" alt="Movie Image" />
       <div class="movie-details">
-        <p class="movie-rank">Rank {{ index + 1 }}</p>
-        <p class="movie-name">{{ movie }}</p>
+        <p class="movie-name">{{ movie.title }}</p>
       </div>
     </div>
   </div>

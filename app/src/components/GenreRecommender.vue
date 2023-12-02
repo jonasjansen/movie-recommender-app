@@ -51,6 +51,7 @@ export default {
       if (this.selectedGenre) {
         try {
           const response = await axios.get(`/api/recommendation/by_genre/${this.selectedGenre}`);
+          console.log('Genre ranking:', response.data)
           this.movieList = response.data;
         } catch (error) {
           console.error('Error fetching genre ranking:', error);

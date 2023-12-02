@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+import json
 import pandas as pd
 import numpy as np
 import random
 from calculation import recommend_by_genre, recommend_by_ratings
+from movie_object_builder import convert_ids_to_objects
 
 
 app = Flask(__name__)
@@ -42,7 +44,10 @@ def get_recommendation_by_genre(selected_genre):
         recommendations = recommend_by_genre(exploded_movies, selected_genre)
         genre_recommendations[selected_genre] = recommendations
 
-    return jsonify(recommendations)
+    movie_ids = recommendations.tolist()
+    movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
+    result = json.dumps(movie_list)
+    return result
 
 
 @app.route('/recommendation/by_rating', methods=['POST'])
