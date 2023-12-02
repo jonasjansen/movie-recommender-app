@@ -8,6 +8,7 @@
       </select>
     </div>
 
+    <h2>Recommendations</h2>
     <movie-list v-if="selectedGenre" :movie-list="movieList" />
   </div>
 </template>

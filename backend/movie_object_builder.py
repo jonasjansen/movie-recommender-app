@@ -12,7 +12,8 @@ def convert_ids_to_objects(movie_ids, movie_data_source):
         movie_object = {
             'id': movie_id,
             'title': movie_data['title'],
-            'image': image_url
+            'image': image_url,
+            'rating': 0
         }
 
         movie_objects.append(movie_object)

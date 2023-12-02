@@ -1,6 +1,5 @@
 <template>
   <div class="movie-section">
-    <h2>Top 10 Movies</h2>
     <div class="movie-card" v-for="(movie, index) in movieList" :key="index">
       <img :src="movie.image" alt="Movie Image" />
       <div class="movie-details">
@@ -14,13 +13,6 @@
 export default {
   props: {
     movieList: Array,
-  },
-  methods: {
-    getMovieImage(index) {
-      // Replace this with the actual image URL for each movie
-      // Dummy data for illustration
-      return `https://via.placeholder.com/150?text=Movie${index + 1}`;
-    },
   },
 };
 </script>

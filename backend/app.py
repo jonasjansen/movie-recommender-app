@@ -25,7 +25,10 @@ def get_all_genres():
 @app.route('/movie/sample')
 def get_random_movies():
     # We sample movies that have a hybrid score above a threshold because they have better chances that the user watched them
-    return jsonify(random.sample(popular_movies_ids, 20))
+    movie_ids = random.sample(popular_movies_ids, 20)
+    movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
+    result = json.dumps(movie_list)
+    return result
 
 
 @app.route('/recommendation/by_genre/<selected_genre>')

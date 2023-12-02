@@ -1,8 +1,8 @@
 <template>
   <div class="star-ratings">
-    <div v-for="(item, index) in items" :key="index" class="star-rating">
-      <img :src="item.image" alt="Item Image" class="item-image" />
-      <h2>{{ item.title }}</h2>
+    <div v-for="(movie, index) in movies" :key="index" class="star-rating">
+      <img :src="movie.image" alt="Item Image" class="item-image" />
+      <h2>{{ movie.title }}</h2>
       <div class="rating">
         <span
             v-for="star in 5"
@@ -11,7 +11,7 @@
             @mouseover="hover(index, star)"
             @mouseout="clearHover"
             :class="{
-              'gold': star <= item.currentRating || (star <= hoverRating && hoverIndex === index),
+              'gold': star <= movie.rating || (star <= hoverRating && hoverIndex === index),
               'black' : true
             }"
         >
@@ -25,7 +25,7 @@
 <script>
 export default {
   props: {
-    items: {
+    movies: {
       type: Array,
       required: true,
     },
