@@ -9,9 +9,12 @@
       </router-link>
       <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">By Genre</router-link>
       <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">By Rating</router-link>
-      <div v-if="currentRoute === '/genre'" class="instructions">How to Genre</div>
-      <div v-if="currentRoute === '/rating'" class="instructions">How to Rating</div>
-      <div v-else class="instructions">No route is active</div>
+      <div v-if="currentRoute === '/genre'" class="instructions">
+        Please choose your preferred genre. Your new movie recommendations will be shown below.
+      </div>
+      <div v-if="currentRoute === '/rating'" class="instructions">
+       Please rate as many movies as possible. Then click on the Link "Get Movie Recommendations". Your new movie recommendations will be shown below.
+      </div>
     </div>
     <div class="main-content">
       <router-view/>
@@ -50,6 +53,15 @@ export default {
   margin-bottom: 30px;
 }
 
+.instructions {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid darkgray;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.5rem;
+    text-align: justify;
+}
 
 body {
   margin: 0;
@@ -86,7 +98,7 @@ body {
   color: #fff;
   display: block;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-decoration: none;
   background-color: #1c1b23;
   border-radius: 5px;
@@ -101,11 +113,5 @@ body {
   background-color: #5252a6;
 }
 
-.instructions {
-  color: #fff;
-  font-size: 1.3rem;
-  margin-top: auto;
-  text-align: center;
-}
 
 </style>

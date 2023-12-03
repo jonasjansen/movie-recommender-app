@@ -8,8 +8,8 @@
 
         <p>
           This app will help you find movies to watch based on your preferences.
-          The app gives your recommendations based either on your preferred genre.
-          Or you can rate movies you've seen and the app will recommend movies based on your ratings.
+          The app gives your recommendations based either on your preferred genre
+          or you can rate movies you've seen and the app will recommend movies based on your ratings.
         </p>
 
         <p>
