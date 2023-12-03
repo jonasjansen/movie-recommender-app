@@ -4,7 +4,7 @@
     <div :class="['accordion']">
       <button class="header" @click="toggleShowRating">
         <span class="text">Rate Movies</span>
-        <span class="toggle">{{ showRating ? '↑' : '↓' }}</span>
+        <span class="toggle">{{ showRating ? '▲' : '▼' }}</span>
       </button>
       <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
         <div class="content" v-show="showRating">
@@ -20,7 +20,7 @@
     <div :class="['accordion']">
       <button class="header" @click="toggleShowRecommendation">
         <span class="text">Your recommendations</span>
-        <span class="toggle">{{ showRecommendation ? '↑' : '↓' }}</span>
+        <span class="toggle">{{ showRecommendation ? '▲' : '▼' }}</span>
       </button>
       <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
         <div class="content" v-show="showRecommendation">
@@ -156,10 +156,11 @@ export default {
 }
 
 .accordion .header .toggle {
-  font-size: 1.5rem;
+  font-size: 1rem;
   float: right;
   margin-left: 20px;
-  margin-right: 10px
+  margin-right: 10px;
+  line-height: 1.5rem
 }
 
 .accordion .content {
