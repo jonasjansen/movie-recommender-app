@@ -1,33 +1,33 @@
 <template>
   <div>
     <!-- List of movies to rate -->
-    <div class="container">
-
-      <button @click="toggleExpansionRating" class="accordion">
+    <div :class="['accordion']">
+      <button class="header" @click="toggleShowRating">
         <span class="text">Rate Movies</span>
-        <span class="toggle">{{ isExpandedRating ? '↑' : '↓' }}</span>
+        <span class="toggle">{{ showRating ? '↑' : '↓' }}</span>
       </button>
-
-      <div class="accordion-content" :class="{ 'expanded': isExpandedRating, 'collapsed': !isExpandedRating }">
-        <movie-list v-if="isExpandedRating" :movies="moviesToRate" :showRating="true" @rating-updated="updateRating"/>
-      </div>
-
+      <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
+        <div class="content" v-show="showRating">
+          <movie-list :movies="moviesToRate" :showRating="true" @rating-updated="updateRating"/>
+        </div>
+      </transition>
     </div>
 
+
     <!-- Add a button to send the ratings to the API -->
-    <button class="rating-action" @click="sendRatingsToApi">Send Ratings to API</button>
+    <button class="rating-action" @click="sendRatingsToApi">Get Movie Recommendations</button>
 
     <!-- List of recommended movies -->
-    <div class="container">
-
-      <button @click="toggleExpansionRecommendation" class="accordion">
+      <div :class="['accordion']">
+      <button class="header" @click="toggleShowRecommendation">
         <span class="text">Your recommendations</span>
-        <span class="toggle">{{ isExpandedRecommendation ? '↑' : '↓' }}</span>
+        <span class="toggle">{{ showRecommendation ? '↑' : '↓' }}</span>
       </button>
-
-      <div class="accordion-content" :class="{ 'expanded': isExpandedRecommendation, 'collapsed': !isExpandedRecommendation }">
-          <movie-list v-if="isExpandedRecommendation" :movies="moviesRecommended" :showRating="false" @rating-updated="updateRating"/>
-      </div>
+      <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
+        <div class="content" v-show="showRecommendation">
+          <movie-list :movies="moviesRecommended" :showRating="true" @rating-updated="updateRating"/>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -44,19 +44,31 @@ export default {
     return {
       moviesToRate: [],
       moviesRecommended: [],
-      isExpandedRating: true,
-      isExpandedRecommendation: false,
+      showRating: true,
+      showRecommendation: false,
     };
   },
   created() {
     this.fetchMovieSample();
   },
   methods: {
-    toggleExpansionRating() {
-      this.isExpandedRating = !this.isExpandedRating;
+    beforeEnter(el) {
+      el.style.height = '0';
     },
-    toggleExpansionRecommendation() {
-      this.isExpandedRecommendation = !this.isExpandedRecommendation;
+    enter(el) {
+      el.style.height = el.scrollHeight + 'px';
+    },
+    beforeLeave(el) {
+      el.style.height = el.scrollHeight + 'px';
+    },
+    leave(el) {
+      el.style.height = '0';
+    },
+    toggleShowRating() {
+      this.showRating = !this.showRating;
+    },
+    toggleShowRecommendation() {
+      this.showRecommendation = !this.showRecommendation;
     },
     async fetchMovieSample() {
       try {
@@ -96,37 +108,6 @@ export default {
 </script>
 
 <style>
-.container {
-  background-color: #1c1b23;
-  border-radius: 5px;
-  border: 1px solid darkgray;
-  padding: 10px;
-}
-
-.accordion {
-  background-color: #1c1b23;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px 10px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.accordion .text {
-  font-weight: 500;
-  font-size: 1.3rem;
-}
-
-.accordion .toggle {
-  font-size: 1.5rem;
-  float: right;
-  margin-left: 20px;
-  margin-right: 10px
-}
-
 .rating-action {
   color: #fff;
   display: block;
@@ -143,17 +124,43 @@ export default {
   width: 100%;
 }
 
-.accordion-content {
+.accordion {
+  background-color: #1c1b23;
+  border-radius: 5px;
+  border: 1px solid darkgray;
+  padding: 10px;
+}
+
+.accordion .header {
+  background-color: #1c1b23;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 10px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  width: 100%;
+}
+
+.accordion .header .text {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.accordion .header .toggle {
+  font-size: 1.5rem;
+  float: right;
+  margin-left: 20px;
+  margin-right: 10px
+}
+
+.accordion .content {
   overflow: hidden;
-  transition: max-height 1s ease-out;
+  border-top: 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  transition: 300ms ease-out;
 }
-
-.collapsed{
-  max-height: 0;
-}
-.expanded {
-  max-height: 2000px;
-}
-
 
 </style>
