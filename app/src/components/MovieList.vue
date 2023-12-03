@@ -9,7 +9,9 @@
         </div>
 
         <!-- image -->
-        <img :src="movie.image" alt="Movie Image" class="movie-image"/>
+        <div class="movie-image">
+        <img :src="movie.image" alt="Movie Image" />
+          </div>
 
         <!-- rating -->
         <div v-if="showRating" class="rating">
@@ -98,9 +100,16 @@ export default {
 
 .movie-image {
   max-width: 100%;
-  height: auto;
+  height: 278px;
   border-radius: 8px;
   border: 1px solid darkgray;
+  overflow: hidden;
+}
+
+.movie-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .movie-title {
