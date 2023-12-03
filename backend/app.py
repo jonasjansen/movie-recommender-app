@@ -56,7 +56,7 @@ def get_recommendation_by_rating():
 
     movie_ids = movie_ids.astype(int)
     movie_ids = movie_ids.tolist()
-    movie_list = convert_ids_to_objects(movie_ids.tolist(), exploded_movies)
+    movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
 
     return json.dumps(movie_list)
 
