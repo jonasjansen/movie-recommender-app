@@ -132,14 +132,14 @@ export default {
 }
 
 .accordion {
-  background-color: #1c1b23;
+  background-color: #0f000f;
   border-radius: 5px;
   border: 1px solid darkgray;
   padding: 10px;
 }
 
 .accordion .header {
-  background-color: #1c1b23;
+  background-color: #0f000f;
   color: #fff;
   cursor: pointer;
   padding: 10px 10px;

@@ -57,14 +57,14 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: #0f000f;
+  background-color: #1c1b23;
   font-family: Noto Sans, Noto Sans HK, Noto Sans JP, Noto Sans KR, Noto Sans SC, Noto Sans TC, sans-serif;
 }
 
 .sidebar {
   width: 250px;
   padding: 25px;
-  background-color: #1c1b23;
+  background-color: #0f000f;
   position: sticky;
   top: 0;
 }

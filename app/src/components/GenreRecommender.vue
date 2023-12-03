@@ -105,7 +105,7 @@ export default {
   color: white;
   font-size: 1.3rem;
   padding: 6px 20px;
-  background-color: #1c1b23;
+  background-color: #0f000f;
   border: 1px solid darkgray;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -131,7 +131,7 @@ ul {
   position: absolute;
   top: 42px;
   left: -26px;
-  background-color: #000;
+  background-color: #1c1b23;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid darkgray;
 }
