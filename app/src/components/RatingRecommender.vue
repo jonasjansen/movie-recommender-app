@@ -13,19 +13,21 @@
       </transition>
     </div>
 
-
     <!-- Add a button to send the ratings to the API -->
     <button class="rating-action" @click="sendRatingsToApi">Get Movie Recommendations</button>
 
     <!-- List of recommended movies -->
-      <div :class="['accordion']">
+    <div :class="['accordion']">
       <button class="header" @click="toggleShowRecommendation">
         <span class="text">Your recommendations</span>
         <span class="toggle">{{ showRecommendation ? '↑' : '↓' }}</span>
       </button>
       <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
         <div class="content" v-show="showRecommendation">
-          <movie-list :movies="moviesRecommended" :showRating="true" @rating-updated="updateRating"/>
+          <movie-list v-if="moviesRecommended.length > 0" :movies="moviesRecommended" :show-rank="true"/>
+          <div class="message" v-else>
+            No recommended movies available. Please rate movies and click on "Get Movie Recommendations" again.
+          </div>
         </div>
       </transition>
     </div>
@@ -87,7 +89,11 @@ export default {
       this.moviesToRate[index].rating = stars;
     },
     async sendRatingsToApi() {
-      this.isExpandedRecommendation = true;
+      // Collapse Recommendation Accordion, if there are no recommendations and it was opened before.
+      if(this.moviesRecommended.length <= 0 && this.showRecommendation) {
+        console.log("Hide ")
+        this.toggleShowRecommendation()
+      }
 
       try {
         console.log("Sending ratings to the API:", this.moviesToRate);
@@ -98,10 +104,11 @@ export default {
         console.log("Result from API:", response.data);
         this.moviesRecommended = response.data;
 
-
       } catch (error) {
         console.error('Error fetching movie ranking:');
       }
+
+      this.showRecommendation = true;
     },
   },
 };
@@ -160,7 +167,13 @@ export default {
   border-top: 0;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  transition: 300ms ease-out;
+  transition: 200ms ease-out;
+}
+
+.message {
+  color: white;
+  font-size: 1rem;
+  padding: 20px 10px
 }
 
 </style>

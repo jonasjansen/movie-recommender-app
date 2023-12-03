@@ -2,23 +2,35 @@
   <div class="movie-list">
     <div v-for="(movie, index) in movies" :key="index" class="movie-card">
       <div class="movie-content">
-        <img :src="movie.image" alt="Movie Image" class="movie-image"/>
-        <p class="movie-title">{{ movie.title }}</p>
-        <div v-if="showRating" class="rating">
-        <span
-            v-for="star in 5"
-            :key="star"
-            @click="rate(index, star)"
-            @mouseover="hover(index, star)"
-            @mouseout="clearHover"
-            :class="{
-              'gold': star <= movie.rating || (star <= hoverRating && hoverIndex === index),
-              'black' : true
-            }"
-        >
-          &#9733;
-        </span>
+
+        <!-- rank -->
+        <div v-if="showRank" class="rank">
+          <span class="rank-number">{{ index + 1 }}</span>
         </div>
+
+        <!-- image -->
+        <img :src="movie.image" alt="Movie Image" class="movie-image"/>
+
+        <!-- rating -->
+        <div v-if="showRating" class="rating">
+          <span
+              v-for="star in 5"
+              :key="star"
+              @click="rate(index, star)"
+              @mouseover="hover(index, star)"
+              @mouseout="clearHover"
+              :class="{
+                'gold': star <= movie.rating || (star <= hoverRating && hoverIndex === index),
+                'black' : true
+              }"
+          >
+            &#9733;
+          </span>
+        </div>
+
+        <!-- title -->
+        <p class="movie-title">{{ movie.title }}</p>
+
       </div>
     </div>
   </div>
@@ -28,6 +40,10 @@
 export default {
   props: {
     showRating: {
+      type: Boolean,
+      default: false
+    },
+    showRank: {
       type: Boolean,
       default: false
     },
@@ -63,13 +79,14 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  //background-color: #1c1b23;
-  padding: 20px 10px;
+  padding: 20px 10px 10px 10px;
+  margin-top: 10px;
+  border-top: 1px solid darkgray;
 }
 
 .movie-card {
   flex: 0 0 19%;
-  margin-bottom: 20px; /* Adjust as needed */
+  margin-bottom: 10px;
 }
 
 .movie-content {
@@ -91,6 +108,7 @@ export default {
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
   font-size: 1rem;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -134,6 +152,19 @@ export default {
 .gold:hover,
 .black:hover {
   cursor: pointer;
+}
+
+.rank {
+  margin-bottom: 10px;
+}
+.rank-number {
+  color: #fff;
+  font-weight: 500;
+  background-color: #5252a6;
+  border-radius: 50%;
+  padding: 5px 10px;
+  margin-top: 10px;
+  display: inline-block;
 }
 </style>
 

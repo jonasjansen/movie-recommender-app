@@ -8,8 +8,20 @@
       </select>
     </div>
 
-    <h2>Recommendations</h2>
-    <movie-list v-if="selectedGenre" :movies="movies" />
+    <!-- List of recommended movies -->
+    <div :class="['accordion']">
+      <button class="header">
+        <span class="text">Your recommendations</span>
+      </button>
+      <transition name="accordion" >
+        <div class="content" >
+          <movie-list v-if="movies.length > 0" :movies="movies" :show-rank="false"/>
+          <div class="message" v-else>
+            No recommended movies available. Please rate movies and click on "Get Movie Recommendations" again.
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
