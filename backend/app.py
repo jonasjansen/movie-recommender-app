@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 similarity_matrix = np.load('data/similarity_matrix.npy')
 rating_matrix = pd.read_csv('data/rating_matrix.csv', index_col=0)
+rating_matrix.columns = rating_matrix.columns.map(int)
 exploded_movies = pd.read_csv('data/exploded_movies.csv', index_col=0)
 popular_movies_ids = exploded_movies[exploded_movies['hybrid_score']
                                      > 0.3]['movie_id'].unique().tolist()
@@ -52,12 +53,10 @@ def get_recommendation_by_rating():
         if user_rating['rating'] > 0:
             new_ratings[user_rating['id']] = user_rating['rating']
 
-    movie_ids = recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded_movies)
+    movie_ids = recommend_by_ratings(
+        new_ratings.values, similarity_matrix, rating_matrix, exploded_movies)
 
-    movie_ids = movie_ids.astype(int)
-    movie_ids = movie_ids.tolist()
     movie_list = convert_ids_to_objects(movie_ids, exploded_movies)
-
     return json.dumps(movie_list)
 
 

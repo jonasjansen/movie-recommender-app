@@ -39,7 +39,8 @@ def recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded
     predictions.sort(key=lambda x: x[1], reverse=True)
     top_10_recommendations = [
         movie for movie, prediction in predictions[:10] if not np.isnan(prediction)]
-    recommended_movies = rating_matrix.columns[top_10_recommendations].values
+    top_10_recommendations = rating_matrix.columns[top_10_recommendations].values.tolist(
+    )
 
     if len(top_10_recommendations) < 10:
         genre_recommendations = complete_recommend_by_ratings(
@@ -49,7 +50,7 @@ def recommend_by_ratings(new_ratings, similarity_matrix, rating_matrix, exploded
         top_10_recommendations += genre_recommendations[:10 - len(
             top_10_recommendations)]
 
-    return recommended_movies
+    return top_10_recommendations
 
 
 def complete_recommend_by_ratings(new_ratings, exploded_movies, rating_matrix):
@@ -60,6 +61,8 @@ def complete_recommend_by_ratings(new_ratings, exploded_movies, rating_matrix):
     :param rating_matrix: Matrix containing movie ratings
     :return: List of recommended movie IDs
     """
+    exploded_movies = exploded_movies.drop_duplicates(
+        subset='movie_id', keep='last')
     try:
         highest_rated_movie_id = rating_matrix.columns[np.nanargmax(
             new_ratings)]
