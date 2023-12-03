@@ -163,6 +163,7 @@ export default {
 }
 
 .accordion .content {
+  max-height: 2000px;
   overflow: hidden;
   border-top: 0;
   border-bottom-left-radius: 6px;
