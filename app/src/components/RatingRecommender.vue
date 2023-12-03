@@ -2,7 +2,7 @@
   <div>
     <!-- List of movies to rate -->
     <h2>Rate Movies</h2>
-    <rating-list :movies="moviesToRate" @rating-updated="updateRating"/>
+    <movie-list :movies="moviesToRate" :showRating="true" @rating-updated="updateRating"/>
 
     <!-- Add a button to send the ratings to the API -->
     <button @click="sendRatingsToApi">Send Ratings to API</button>
@@ -15,13 +15,11 @@
 
 <script>
 import axios from 'axios';
-import RatingList from './RatingList.vue';
 import MovieList from "./MovieList.vue";
 
 export default {
   components: {
     MovieList,
-    RatingList,
   },
   data() {
     return {
