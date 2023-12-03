@@ -6,6 +6,7 @@
       <!-- Custom dropdown container -->
       <div class="custom-dropdown" @click="toggleDropdown">
         {{ selectedGenre || '-- Select --' }}
+        <span class="dropdown-arrow" :class="{ 'active': showDropdown }"></span>
         <ul v-show="showDropdown">
           <li v-for="genre in genres" :key="genre" @click="selectGenre(genre)">
             {{ genre }}
@@ -143,5 +144,22 @@ ul li {
 
 ul li:hover {
   background-color: #5252a6;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: #fff transparent transparent transparent;
+  transition: transform 0.3s ease;
+}
+
+.active {
+  transform: translateY(-50%) rotate(180deg);
 }
 </style>
