@@ -61,8 +61,6 @@ def complete_recommend_by_ratings(new_ratings, exploded_movies, rating_matrix):
     :param rating_matrix: Matrix containing movie ratings
     :return: List of recommended movie IDs
     """
-    exploded_movies = exploded_movies.drop_duplicates(
-        subset='movie_id', keep='last')
     try:
         highest_rated_movie_id = rating_matrix.columns[np.nanargmax(
             new_ratings)]
@@ -77,4 +75,5 @@ def complete_recommend_by_ratings(new_ratings, exploded_movies, rating_matrix):
         return movies_same_genre.nlargest(10, 'hybrid_score')['movie_id'].tolist()
 
     except (ValueError, IndexError):
-        return exploded_movies.nlargest(10, 'hybrid_score')['movie_id'].tolist()
+        return exploded_movies.drop_duplicates(
+            subset='movie_id', keep='first').nlargest(10, 'hybrid_score')['movie_id'].tolist()
