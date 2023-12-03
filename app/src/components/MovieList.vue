@@ -90,7 +90,7 @@ export default {
   text-align: center;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 1200px) {

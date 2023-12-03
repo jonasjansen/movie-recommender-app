@@ -1,11 +1,12 @@
 <template>
-  <div id="app">
+  <div class="main">
     <div class="sidebar">
-      <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">Recommender by Genre</router-link>
-      <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">Recommender by Rating</router-link>
+      <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">By Genre</router-link>
+      <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">By Rating
+      </router-link>
     </div>
     <div class="main-content">
-      <router-view />
+      <router-view/>
     </div>
   </div>
 </template>
@@ -26,27 +27,38 @@ export default {
 </script>
 
 <style>
-#app {
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
   display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
   background-color: #0f000f;
   font-family: Noto Sans, Noto Sans HK, Noto Sans JP, Noto Sans KR, Noto Sans SC, Noto Sans TC, sans-serif;
 }
 
-body {
-  margin: 0;
-}
-
 .sidebar {
-  flex: 0 0 250px; /* Adjust the width of the sidebar as needed */
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  overflow-y: auto;
-  min-width: 200px;
+  width: 250px;
   padding: 25px;
   background-color: #1c1b23;
+  position: sticky;
+  top: 0;
 }
+
+.main-content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .menu-item {
   color: #fff;
@@ -58,16 +70,13 @@ body {
   border-radius: 5px;
   border: 1px solid darkgray;
   line-height: 2rem;
+  font-size: 1.3rem;
+  text-align: center;
 }
 
 .menu-item:hover,
 .menu-item.active {
   background-color: #5252a6;
 }
-.main-content {
-  flex: 1;
-  padding: 20px;
-  margin-left: 250px;
-  overflow-y: auto;
-}
+
 </style>
