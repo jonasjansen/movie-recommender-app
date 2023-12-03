@@ -37,17 +37,22 @@ body {
 }
 
 .sidebar {
-  width: 200px;
-  background-color: #1c1b23;
-  padding: 20px;
+  flex: 0 0 250px; /* Adjust the width of the sidebar as needed */
   height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  min-width: 200px;
+  padding: 25px;
+  background-color: #1c1b23;
 }
 
 .menu-item {
   color: #fff;
   display: block;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-decoration: none;
   background-color: #1c1b23;
   border-radius: 5px;
@@ -59,9 +64,10 @@ body {
 .menu-item.active {
   background-color: #5252a6;
 }
-
 .main-content {
   flex: 1;
   padding: 20px;
+  margin-left: 250px;
+  overflow-y: auto;
 }
 </style>

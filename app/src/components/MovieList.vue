@@ -3,7 +3,7 @@
     <div v-for="(movie, index) in movies" :key="index" class="movie-card">
       <div class="movie-content">
         <img :src="movie.image" alt="Movie Image" class="movie-image"/>
-        <h2 class="movie-title">{{ movie.title }}</h2>
+        <p class="movie-title">{{ movie.title }}</p>
         <div v-if="showRating" class="rating">
         <span
             v-for="star in 5"
@@ -63,6 +63,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  //background-color: #1c1b23;
+  padding: 20px 10px;
 }
 
 .movie-card {
@@ -72,7 +74,9 @@ export default {
 
 .movie-content {
   width: 100%;
+  max-width: 185px;
   text-align: center;
+  margin: 0 auto;
 }
 
 .movie-image {
@@ -83,8 +87,10 @@ export default {
 }
 
 .movie-title {
+  text-align: center;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 1200px) {
