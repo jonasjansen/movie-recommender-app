@@ -1,13 +1,17 @@
 <template>
   <div class="main">
     <div class="sidebar">
-      <div class="logo">
-        <div>Movie</div>
-        <div>Recommender</div>
-      </div>
-      <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">By Genre</router-link>
-      <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">By Rating
+      <router-link to="/" class="logo-link">
+        <div class="logo">
+          <div>Movie</div>
+          <div>Recommender</div>
+        </div>
       </router-link>
+      <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">By Genre</router-link>
+      <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">By Rating</router-link>
+      <div v-if="currentRoute === '/genre'" class="instructions">How to Genre</div>
+      <div v-if="currentRoute === '/rating'" class="instructions">How to Rating</div>
+      <div v-else class="instructions">No route is active</div>
     </div>
     <div class="main-content">
       <router-view/>
@@ -95,6 +99,13 @@ body {
 .menu-item:hover,
 .menu-item.active {
   background-color: #5252a6;
+}
+
+.instructions {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-top: auto;
+  text-align: center;
 }
 
 </style>
