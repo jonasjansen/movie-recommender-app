@@ -1,6 +1,10 @@
 <template>
   <div class="main">
     <div class="sidebar">
+      <div class="logo">
+        <div>Movie</div>
+        <div>Recommender</div>
+      </div>
       <router-link to="/genre" class="menu-item" :class="{ active: currentRoute === '/genre' }">By Genre</router-link>
       <router-link to="/rating" class="menu-item" :class="{ active: currentRoute === '/rating' }">By Rating
       </router-link>
@@ -27,6 +31,20 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'Forque';
+  src: url('/fonts/forque.ttf') format('truetype');
+}
+
+.logo {
+  font-family: 'Forque', sans-serif;
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid darkgray;
+  margin-bottom: 30px;
+}
 
 
 body {

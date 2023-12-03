@@ -24,7 +24,7 @@
       </button>
       <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
         <div class="content" v-show="showRecommendation">
-          <movie-list v-if="moviesRecommended.length > 0" :movies="moviesRecommended" :show-rank="true"/>
+          <movie-list v-if="moviesRecommended.length > 0" :movies="moviesRecommended" :show-rank="false"/>
           <div class="message" v-else>
             No recommended movies available. Please rate movies and click on "Get Movie Recommendations" again.
           </div>
